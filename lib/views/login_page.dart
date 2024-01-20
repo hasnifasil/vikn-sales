@@ -1,11 +1,7 @@
-import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:vikn_sales/views/sales_list.dart';
-
 import '../controllers/login_controller.dart';
 
 class LoginPage extends StatelessWidget {
