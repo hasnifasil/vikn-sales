@@ -1,15 +1,15 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vikn_sales/models/sales_data_model.dart';
 
 class ApiServices {
-  
+  //function to get sales list
   Future getDatas(page) async {
-   
-    final apiUrl ='https://www.api.viknbooks.com/api/v10/sales/sale-list-page/';
+    final apiUrl =
+        'https://www.api.viknbooks.com/api/v10/sales/sale-list-page/';
 
     Dio dio = Dio();
 
@@ -30,7 +30,7 @@ class ApiServices {
       "type": "Sales",
       "WarehouseID": 1,
     };
-try {
+    try {
       final response = await dio.post(
         apiUrl,
         data: jsonEncode(payload),
@@ -49,5 +49,22 @@ try {
       print('Error: $e');
       return null;
     }
+  }
+
+  //function for login
+  loginUser(String user, password, BuildContext context) async {
+    var url = 'https://api.accounts.vikncodes.com/api/v1/users/login';
+
+    Dio dio = Dio();
+
+    try {
+     var data = {'username': user, 'password': password, 'is_mobile': 'true'};
+      final response = await dio.post(url, data: jsonEncode(data));
+
+      if (response.statusCode == 200) {
+       return response.data;
+        
+      }
+    } catch (e) {}
   }
 }

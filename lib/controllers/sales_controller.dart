@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vikn_sales/models/sales_data_model.dart';
 import 'package:vikn_sales/services/service.dart';
 
@@ -21,20 +19,25 @@ class ApiController extends GetxController {
   }
 
   Future<void> fetchData() async {
-   
     final salesData = await ApiServices().getDatas(currentPage.value);
-   
-    isLoading(true);
-    if (currentPage.value == 1) {
-      salesModel.value = salesData;
-    } else {
-      salesModel.update((val) {
-        val!.data!.addAll(salesData.data ?? []);
-      });
-    }
 
-    if (salesData.data?.length >= 10) {
-      currentPage.value++;
+    isLoading(true);
+    try {
+      if (currentPage.value == 1) {
+        salesModel.value = salesData;
+      } else {
+        salesModel.update((val) {
+          if (val != null && salesData.data != null){
+            val!.data!.addAll(salesData.data ?? []);
+          }
+        });
+      }
+
+      if (salesData.data?.length >= 10) {
+        currentPage.value++;
+      }
+    } catch (e) {
+      print(e);
     }
     isLoading(false);
   }
