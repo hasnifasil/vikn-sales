@@ -7,8 +7,8 @@ import 'package:vikn_sales/services/service.dart';
 class ApiController extends GetxController {
   final apiUrl = 'https://www.api.viknbooks.com/api/v10/sales/sale-list-page/';
   var salesModel = SalesModel().obs;
-  final RxInt currentPage = 1.obs;
-  final RxBool isLoading = false.obs;
+  final RxInt currentPage = RxInt(1);
+  final RxBool isLoading = RxBool(false);
 
   Dio dio = Dio();
 
@@ -27,7 +27,7 @@ class ApiController extends GetxController {
         salesModel.value = salesData;
       } else {
         salesModel.update((val) {
-          if (val != null && salesData.data != null){
+          if (val != null && salesData.data != null) {
             val!.data!.addAll(salesData.data ?? []);
           }
         });
