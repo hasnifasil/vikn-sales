@@ -52,7 +52,7 @@ class ApiServices {
   }
 
   //function for login
-  loginUser(String user, password, BuildContext context) async {
+  loginUser(String user, password) async {
     var url = 'https://api.accounts.vikncodes.com/api/v1/users/login';
 
     Dio dio = Dio();

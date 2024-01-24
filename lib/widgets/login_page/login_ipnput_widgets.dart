@@ -112,7 +112,7 @@ class LoginInputFieldDesign extends StatelessWidget {
         InkWell(
             onTap: () {
               _loginController.logintoDb(_userController.text,
-                  _passwordController.text, context);
+                  _passwordController.text);
             },
             child: Container(
                 width: 100,

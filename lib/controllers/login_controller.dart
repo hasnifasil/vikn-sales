@@ -8,13 +8,13 @@ import 'package:vikn_sales/views/sales_list.dart';
 class LoginController extends GetxController {
   final RxBool isLoading = false.obs;
 
-  logintoDb(String user, password, BuildContext context) async {
+  logintoDb(String user, password) async {
     isLoading(true);
 
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      final response = await ApiServices().loginUser(user, password, context);
+      final response = await ApiServices().loginUser(user, password);
 
       if (response != null) {
         Map<String, dynamic> map = Map<String, dynamic>.from(response);
@@ -30,10 +30,7 @@ class LoginController extends GetxController {
           backgroundColor: Colors.green,
           colorText: Colors.white,
         );
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => SalesData()),
-        );
+        Get.to(() => SalesData());
       } else {
         Get.snackbar(
           'Error',
